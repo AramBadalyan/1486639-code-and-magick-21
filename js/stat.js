@@ -21,7 +21,7 @@ var renderCloud = function (ctx, x, y, color) {
 var renderText = function (ctx, x, y, textToRender) {
   var textLines = textToRender.split('\n');
 
-  for (var i = 0; i < textLines.length; i += 1) {
+  for (var i = 0; i < textLines.length; i++) {
     ctx.fillText(textLines[i], x, y + (FONT_SIZE + GAP) * i);
   }
 };
@@ -29,7 +29,7 @@ var renderText = function (ctx, x, y, textToRender) {
 var getMaxValue = function (array) {
   var max = array[0];
 
-  for (var i = 1; i < array.length; i += 1) {
+  for (var i = 1; i < array.length; i++) {
     if (array[i] > max) {
       max = array[i];
     }
@@ -37,6 +37,10 @@ var getMaxValue = function (array) {
 
   return max;
 };
+
+var getRandomInt = function (max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 
 window.renderStatistics = function (ctx, names, times) {
   renderCloud(
@@ -64,10 +68,9 @@ window.renderStatistics = function (ctx, names, times) {
 
   var maxTime = getMaxValue(times);
 
-  ctx.fillStyle = '#000';
-
-  for (var i = 0; i < names.length; i += 1) {
+  for (var i = 0; i < names.length; i++) {
     var currentBarWidth = (BAR_HEIGHT * times[i]) / maxTime;
+    var timeRounded = Math.round(times[i]);
     ctx.fillStyle = '#000';
 
     ctx.fillText(
@@ -77,7 +80,7 @@ window.renderStatistics = function (ctx, names, times) {
     );
 
     ctx.fillText(
-        Math.round(times[i]),
+        timeRounded,
         CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i,
         CLOUD_Y + CLOUD_HEIGHT - GAP - FONT_SIZE - GAP - currentBarWidth - FONT_SIZE
     );
@@ -85,7 +88,7 @@ window.renderStatistics = function (ctx, names, times) {
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
-      ctx.fillStyle = `hsl(240, ${Math.random() * 100}%, 50%)`;
+      ctx.fillStyle = `hsl(240, ${getRandomInt(100)}%, 50%)`;
     }
     ctx.fillRect(
         CLOUD_X + BAR_GAP + (BAR_GAP + BAR_WIDTH) * i,

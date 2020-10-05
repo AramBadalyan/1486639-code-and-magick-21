@@ -35,9 +35,13 @@ var EYES_COLOR = [
   `yellow`,
   `green`];
 
+var getRandomInt = function (max) {
+  return Math.floor(Math.random() * Math.floor(max));
+};
+
 var wizardsNumber = 4;
-var setupWindow = document.querySelector('.setup');
-setupWindow.classList.remove('hidden');
+var setupWindow = document.querySelector(`.setup`);
+setupWindow.classList.remove(`hidden`);
 var wizards = [];
 
 for (var i = 0; i < wizardsNumber; i++) {
@@ -49,33 +53,35 @@ for (var i = 0; i < wizardsNumber; i++) {
     coatColor: COAT_COLORS[getRandomInt(COAT_COLORS.length)],
     eyesColor: EYES_COLOR[getRandomInt(EYES_COLOR.length)]
   };
-};
+}
 
-var similarBlock = document.querySelector('.setup-similar');
-var similarList = document.querySelector('.setup-similar-list');
-var similarWizardTemplate = document.querySelector('#similar-wizard-template')
+var similarBlock = document.querySelector(`.setup-similar`);
+var similarList = document.querySelector(`.setup-similar-list`);
+var similarWizardTemplate = document.querySelector(`#similar-wizard-template`)
   .content
-  .querySelector('.setup-similar-item');
+  .querySelector(`.setup-similar-item`);
+
+console.log(wizards);
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
 
-  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+  wizardElement.querySelector(`.setup-similar-label`).textContent = wizard.name;
+  wizardElement.querySelector(`.wizard-coat`).style.fill = wizard.coatColor;
+  wizardElement.querySelector(`.wizard-eyes`).style.fill = wizard.eyesColor;
 
   return wizardElement;
 };
 
 var fillList = function (items) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < items.length; i++) {
-    fragment.appendChild(renderWizard(items[i]));
+  for (var j = 0; j < items.length; j++) {
+    fragment.appendChild(renderWizard(items[j]));
   }
 
   return fragment;
-}
+};
 
 similarList.appendChild(fillList(wizards));
 
-similarBlock.classList.remove('hidden');
+similarBlock.classList.remove(`hidden`);

@@ -1,5 +1,6 @@
 'use strict';
 
+var WIZARDS_NUMBER = 4;
 var NAMES = [
   `Иван`,
   `Хуан Себастьян`,
@@ -8,7 +9,8 @@ var NAMES = [
   `Виктор`,
   `Юлия`,
   `Люпита`,
-  `Вашингтон`];
+  `Вашингтон`
+];
 
 var SURNAMES = [
   `да Марья`,
@@ -18,7 +20,8 @@ var SURNAMES = [
   `Онопко`,
   `Топольницкая`,
   `Нионго`,
-  `Ирвинг`];
+  `Ирвинг`
+];
 
 var COAT_COLORS = [
   `rgb(101, 137, 164)`,
@@ -26,40 +29,29 @@ var COAT_COLORS = [
   `rgb(146, 100, 161)`,
   `rgb(56, 159, 117)`,
   `rgb(215, 210, 55)`,
-  `rgb(0, 0, 0)`];
+  `rgb(0, 0, 0)`
+];
 
 var EYES_COLOR = [
   `black`,
   `red`,
   `blue`,
   `yellow`,
-  `green`];
+  `green`
+];
 
-var getRandomInt = function (max) {
-  return Math.floor(Math.random() * Math.floor(max));
-};
-
-var wizardsNumber = 4;
-var setupWindow = document.querySelector(`.setup`);
-setupWindow.classList.remove(`hidden`);
 var wizards = [];
-
-for (var i = 0; i < wizardsNumber; i++) {
-  wizards[i] = {
-    name:
-      NAMES[getRandomInt(NAMES.length)]
-      + ` `
-      + SURNAMES[getRandomInt(SURNAMES.length)],
-    coatColor: COAT_COLORS[getRandomInt(COAT_COLORS.length)],
-    eyesColor: EYES_COLOR[getRandomInt(EYES_COLOR.length)]
-  };
-}
 
 var similarBlock = document.querySelector(`.setup-similar`);
 var similarList = document.querySelector(`.setup-similar-list`);
 var similarWizardTemplate = document.querySelector(`#similar-wizard-template`)
   .content
   .querySelector(`.setup-similar-item`);
+var setupWindow = document.querySelector(`.setup`);
+
+var getRandomInt = function (max) {
+  return Math.floor(Math.random() * Math.floor(max));
+};
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -79,6 +71,17 @@ var fillList = function (items) {
 
   return fragment;
 };
+
+setupWindow.classList.remove(`hidden`);
+
+for (var i = 0; i < WIZARDS_NUMBER; i++) {
+  wizards[i] = {
+    name: `${NAMES[getRandomInt(NAMES.length)]}
+        ${SURNAMES[getRandomInt(SURNAMES.length)]}`,
+    coatColor: COAT_COLORS[getRandomInt(COAT_COLORS.length)],
+    eyesColor: EYES_COLOR[getRandomInt(EYES_COLOR.length)]
+  };
+}
 
 similarList.appendChild(fillList(wizards));
 

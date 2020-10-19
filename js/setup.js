@@ -48,6 +48,9 @@ var FIREBALL_COLORS = [
   `#e6e848`
 ];
 
+var ESC_KEY = `Escape`;
+var ETR_KEY = `Enter`;
+
 var wizards = [];
 
 var similarBlock = document.querySelector(`.setup-similar`);
@@ -58,10 +61,12 @@ var similarWizardTemplate = document.querySelector(`#similar-wizard-template`)
 var setupWindow = document.querySelector(`.setup`);
 
 var setupWindowOpen = document.querySelector(`.setup-open`);
+var setupWindowOpenIcon = setupWindowOpen.querySelector(`.setup-open-icon`);
 var setupWindowClose = setupWindow.querySelector(`.setup-close`);
 var setupForm = document.querySelector(`.setup-wizard-form`);
 var usernameInput = setupForm.querySelector(`.setup-user-name`);
 
+var wizardNameInput = setupWindow.querySelector(`input[name="username"]`);
 var wizardEyes = setupWindow.querySelector(`.wizard-eyes`);
 var wizardEyesInput = setupWindow.querySelector(`input[name="eyes-color"]`);
 var wizardCoat = setupWindow.querySelector(`.wizard-coat`);
@@ -93,14 +98,14 @@ var fillList = function (items) {
 };
 
 var onSetupEscPress = function (evt) {
-  if (evt.key === `Escape` && !(document.activeElement === usernameInput)) {
+  if (evt.key === ESC_KEY && !(document.activeElement === usernameInput)) {
     evt.preventDefault();
     closeSetup();
   }
 };
 
 var onSetupCloseEtrPress = function (evt) {
-  if (evt.key === `Enter`) {
+  if (evt.key === ETR_KEY) {
     evt.preventDefault();
     closeSetup();
   }
@@ -135,12 +140,17 @@ similarList.appendChild(fillList(wizards));
 
 similarBlock.classList.remove(`hidden`);
 
+setupWindowOpenIcon.tabIndex = 0;
+setupWindowClose.tabIndex = 0;
+setupForm.action = `https://21.javascript.pages.academy/code-and-magick`;
+wizardNameInput.minLength = 2;
+
 setupWindowOpen.addEventListener(`click`, function () {
   openSetup();
 });
 
 setupWindowOpen.addEventListener(`keydown`, function (evt) {
-  if (evt.key === `Enter`) {
+  if (evt.key === ETR_KEY) {
     openSetup();
   }
 });
